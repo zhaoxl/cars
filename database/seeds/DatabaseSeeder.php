@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call(UserTableSeeder::class);
-
+				DB::table('users')->delete();
+				\App\User::create(['name' => 'zhaoxiaolong', 'email' => '99866770@qq.com', 'password' => \Hash::make('123456')]);
+				
         Model::reguard();
     }
 }

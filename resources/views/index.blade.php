@@ -76,8 +76,8 @@
                     <span class="nj"><a>年检</a></span>
                 </div>
                 <div class="leftCarBox">
-                    <p>李浩然</p>
-                    <p>驾照:2201***8822</p>
+                    <p>{{$license->name}}</p>
+                    <p>驾照:{{$license->safeNumber()}}</p>
                 </div>
             </dd>
             </dl>
@@ -248,69 +248,25 @@
     		</div>
             <div class="carList">
               <div class="zmBox">
-                <a href="#a">a</a>
-                <a href="#b">b</a>
-                <a href="#c">c</a>
-                <a href="#d">d</a>
-                <a href="#e">e</a>
-                <a href="#f">f</a>
-                <a href="#g">g</a>
-                <a href="#h">h</a>
-                <a href="#i">i</a>
-                <a href="#j">j</a>
-                <a href="#k">k</a>
-                <a href="#l">l</a>
-                <a href="#m">m</a>
-                <a href="#n">n</a>
-                <a href="#o">o</a>
-                <a href="#p">p</a>
-                <a href="#q">q</a>
-                <a href="#r">r</a>
-                <a href="#s">s</a>
-                <a href="#t">t</a>
-                <a href="#u">u</a>
-                <a href="#v">v</a>
-                <a href="#w">w</a>
-                <a href="#x">x</a>
-                <a href="#y">y</a>
-                <a href="#z">z</a>
+								@foreach ($brand_initials as $data)
+                <a href="#{{$data->initial}}">{{$data->initials}}</a>
+								@endforeach
             	</div>
             <div class="carList1">
-              <dl id="a">
-                    	<dt>A</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-                    <dl id="b">
-                    	<dt>B</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-                    <dl id="c">
-                    	<dt>C</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-                    <dl id="d">
-                    	<dt>D</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-                    <dl id="E">
-                    	<dt>E</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
+							<?php $up_initials = '';?>
+							@foreach($brands as $data)
+								@if($up_initials != '' && $data->initials != $up_initials)
+										</dd>
+									</dl>
+								@endif
+								@if($up_initials != $data->initials)
+		              <dl id="{{$data->initials}}">
+		              	<dt>{{$data->initials}}</dt>
+                    <dd>
+								@endif
+								<?php $up_initials = $data->initials?>
+                			<li data-brandid="{{$data->brandid}}"><span class="tb"></span><p>{{$data->brandname}}</p><span class="xyb"></span></li>
+							@endforeach
             </div>
             </div>
     </div>
@@ -440,24 +396,24 @@
     </div>
     <div class="checkCarBox">
     	<dl class="carBox1">
-        <dd><div class="gs"><p>李浩然</p></div><span class="FF"></span></dd>
+        <dd><div class="gs"><p>{{$license->name}}</p></div><span class="FF"></span></dd>
         </dl>
         <div class="carBox_11" style=" display:none;">
             <dl class="carBox">
                 <dt>驾驶证号</dt>
-                <dd><p>220104199506161817</p></dd>
+                <dd><p>{{$license->number}}</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>准驾车型</dt>
-                <dd><p>sssss</p></dd>
+                <dd><p>{{$license->category}}</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>领证时间</dt>
-                <dd><p>2015-11-14</p></dd>
+                <dd><p>{{$license->receive_at}}</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>年检时间</dt>
-                <dd><p>2015-11-14</p></dd>
+                <dd><p>{{$license->check_at}}</p></dd>
             </dl>
         </div>
     </div>
@@ -765,18 +721,23 @@
 				$("#form_licenses_create input.error").css("position", "absolute").each(function() {
 					var left = $(this).position()["left"];
 	        $(this).stop()
-	        .animate({ left: (left-5)+"px" }, 100).animate({ left: (left+5)+"px" }, 100)
-	        .animate({ left: (left)+"px" }, 100);
+	        .animate({ left: (left-5)+"px" }, 10).animate({ left: (left+5)+"px" }, 10)
+	        .animate({ left: (left)+"px" }, 10);
 				});
-// 				if ( element.is(":radio") )
-// 		    	error.appendTo( element.parent().next().next() );
-// 		    else if ( element.is(":checkbox") )
-// 		      error.appendTo ( element.next() );
-// 		    else
-// 		      error.appendTo( element.parent().next() );
 			}
     });
 		
+		//选择汽车品牌加载汽车型号
+		$(".carList1 li").click(function(){
+			$(".carList2").html("正在加载...");
+			var brandid = $(this).attr('data-brandid');
+	    $.ajax({
+	      url: '/api/car_serials?brandid=' + brandid,
+	      success: function(result) {
+					$(".carList2").html(result);
+	      }
+	    });
+		});
 		
 		
 	});

@@ -37,7 +37,48 @@ class LicensesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+			if(\Auth::guest()){
+				return redirect("/");
+			}
+
+			$user = \Auth::user();
+			//如果用户已经添加过驾驶证则添加失败
+			if(\App\License::where('user_id', '=', $user->id)->first())
+			{
+				return redirect("/");
+			}
+				
+			$name = $request['name'];
+			$number = $request['number'];
+			$category = $request['category'];
+			$receive_at = $request['receive_at'];
+			$check_at = $request['check_at'];
+							
+			if(empty($name))
+			{
+				return redirect()->back()->withErrors(['name' => '请输入驾照姓名']);
+			}
+			if(empty($number))
+			{
+				return redirect()->back()->withErrors(['number' => '请输入驾驶证号']);
+			}
+			if(empty($category))
+			{
+				return redirect()->back()->withErrors(['category' => '请输入准驾车型']);
+			}
+			if(empty($receive_at))
+			{
+				return redirect()->back()->withErrors(['receive_at' => '请输入领证时间']);
+			}
+			if(empty($check_at))
+			{
+				return redirect()->back()->withErrors(['check_at' => '请输入年检时间']);
+			}
+			
+			
+			$staff = \App\License::create(array('user_id' => $user->id, 'name' => $name, 'number' => $number, 'category' => $category, 'receive_at' => $receive_at, 'check_at' => $check_at));
+
+			return redirect("/");
     }
 
     /**

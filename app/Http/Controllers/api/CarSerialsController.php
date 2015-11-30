@@ -1,36 +1,32 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class CarSerialsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-			\Auth::loginUsingId(1);
-			$user = \Auth::user();
+			$brandid = $request['brandid'];
+			$serials = \App\CarSerial::where('brandid', '=', $brandid)->get();
 			
-			$brand_initials = \App\CarBrand::groupBy('initials')->select('initials');
-			$brands = \App\CarBrand::orderBy('initials', 'ASC')->get();
-			
-			$license = \App\License::where('user_id', '=', $user->id)->first();
-			
-      return view('/index')->with('brand_initials', $brand_initials)->with('brands', $brands)->with('license', $license);
+			return view('api.car_serials.index')->with('serials', $serials);
     }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * 
      */
     public function create()
     {
@@ -45,7 +41,7 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+			
     }
 
     /**
