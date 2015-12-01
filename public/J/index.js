@@ -38,14 +38,14 @@
 			$("#tpl_myCar").show();
 			$("#tpl_mylicense").hide();
 			})
-		$('.carListBox1 ul li').click(function(){
-			$('.carList11').show();
-			$('.carListBox1').hide();	
-		})
-		$('.carList11 .leftBox').click(function(){
-			$('.carList11').hide();
-			$('.carListBox1').show();	
-			})
+		// $('.carListBox1 ul li').click(function(){
+// 			$('.carList11').show();
+// 			$('.carListBox1').hide();
+// 		})
+		// $('.carList11 .leftBox').click(function(){
+// 			$('.carList11').hide();
+// 			$('.carListBox1').show();
+// 			})
 			
     });
 	

@@ -17,4 +17,6 @@ Route::group(['namespace' => 'api'], function()
 	Route::resource('/api/insurance_companies', 'InsuranceCompaniesController');
 	Route::resource('/api/licenses', 'LicensesController');
 	Route::resource('/api/car_serials', 'CarSerialsController');
+	Route::resource('/api/car_models', 'CarModelsController');
+	Route::resource('/api/cars', 'CarsController');
 });

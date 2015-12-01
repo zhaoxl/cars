@@ -14,6 +14,16 @@
 
 <!--我的车辆-->
 	<div class="page" id="tpl_myCar">
+		@if (count($errors) > 0)
+			<div class="alert alert-danger">
+				<strong>错误!</strong> 输入信息有误.<br><br>
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
         <!--顶部-->
         <div class="TopBigBox">
             <div class="leftBox">
@@ -25,23 +35,7 @@
         <!--我的车辆-->
         
         <div class="myCarBox">
-        
-            <dl class="myCar">
-            <dt><img src="P/cl.gif"></dt>
-            <dd>
-                <div class="rightCarBox">
-                    <!--
-                    <span class="wz"><a>违章</a></span>
-                    <span><a>保养</a></span>
-                    -->
-                    <a class="JT"></a>
-                </div>
-                <div class="leftCarBox">
-                    <p>长安铃木 天语SX4两厢</p>
-                    <p>车牌:吉A3644G</p>
-                </div>
-            </dd>
-            </dl>
+						@foreach ($cars as $data)
             <dl class="myCar">
             <dt><img src="P/cl1.gif"></dt>
             <dd>
@@ -50,24 +44,13 @@
                     <span class="by"><a>保养</a></span>
                 </div>
                 <div class="leftCarBox">
-                    <p>别克 昂科威ENVISIO</p>
+                    <p>{{$data->carName()}}</p>
                     <p>车牌:吉A3464G</p>
                 </div>
             </dd>
             </dl>
-            <dl class="myCar">
-            <dt><img src="P/cl1.gif"></dt>
-            <dd>
-                <div class="rightCarBox">
-                    <span class="wz"><a>违章</a></span>
-                </div>
-                <div class="leftCarBox">
-                    <p>东风风行 景逸S50</p>
-                    <p>车牌:吉A3464G</p>
-                </div>
-            </dd>
-            </dl>
-    
+						@endforeach
+            
             <dl class="myCar1">
             <dt><img src="P/cl2.gif"></dt>
             <dd>
@@ -142,60 +125,65 @@
             </div>
             <p>添加车辆</p>
         </div>
-        <div class="addCarBox">
-            <dl>
-                <dt>车辆品牌</dt>
-                <dd>
-                    <input id="RR" placeholder="点击选择车辆品牌" readonly>
-                </dd>
-            </dl>
-            <dl>
-                <dt>购买日期</dt>
-                <dd><input type="date"></dd>
-            </dl>
-            <dl>
-                <dt>购买地点</dt>
-                <dd><input placeholder="汽车购买的详细地址"></dd>
-            </dl>
-            <dl>
-                <dt>年检日期</dt>
-                <dd><input type="date"></dd>
-            </dl>
-            <dl>
-                <dt>保养日期</dt>
-                <dd><input type="date"></dd>
-            </dl>
-            <dl>
-                <dt>车辆识别号</dt>
-                <dd><input placeholder="汽车识别号"></dd>
-            </dl>
-            <dl>
-                <dt>发动机号</dt>
-                <dd><input placeholder="发动机号码"></dd>
-            </dl>
-            <dl>
-                <dt>证书编号</dt>
-                <dd><input placeholder="证明编号"></dd>
-            </dl>
-            <dl>
-                <dt>保险公司</dt>
-                <dd><input class="qq" id="EE" placeholder="选择保险公司" readonly>
-                </dd>
-            </dl>
-            <dl>
-                <dt>保险金额</dt>
-                <dd><input placeholder="保险金额"></dd>
-            </dl>
-            <dl>
-                <dt>保险时间</dt>
-                <dd><input type="date"></dd>
-            </dl>
-            <dl>
-                <dt>保险内容</dt>
-                <dd><input class="content" value="选择已购买的保险" readonly></dd>
-            </dl>
-            <div class="addCarButton"><button>提交车辆信息</button></div>
-        </div>
+				<form id="form_cars_create" action="/api/cars" method="post">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+	        <div class="addCarBox">
+	            <dl>
+	                <dt>车辆品牌</dt>
+	                <dd>
+	                    <input id="RR" class="RR" placeholder="点击选择车辆品牌" data-rule-required="true" data-msg-required="请选择车辆品牌" readonly>
+											<input type="hidden" id="model_id" name="model_id" />
+	                </dd>
+	            </dl>
+	            <dl>
+	                <dt>购买日期</dt>
+	                <dd><input type="date" name="buy_at" data-rule-required="true" data-msg-required="请输入购买日期" maxlength="10" data-rule-isDate="true" data-msg-isDate="时间格式错误"></dd>
+	            </dl>
+	            <dl>
+	                <dt>购买地点</dt>
+	                <dd><input placeholder="汽车购买的详细地址" name="buy_address" data-rule-required="true" data-msg-required="请输入汽车购买的详细地址"></dd>
+	            </dl>
+	            <dl>
+	                <dt>年检日期</dt>
+	                <dd><input type="date" name="check_at" data-rule-required="true" data-msg-required="请输入年检日期" maxlength="10" data-rule-isDate="true" data-msg-isDate="时间格式错误"></dd>
+	            </dl>
+	            <dl>
+	                <dt>保养日期</dt>
+	                <dd><input type="date" name="maintain_at" data-rule-required="true" data-msg-required="请输入保养日期" maxlength="10" data-rule-isDate="true" data-msg-isDate="时间格式错误"></dd>
+	            </dl>
+	            <dl>
+	                <dt>车辆识别号</dt>
+	                <dd><input placeholder="汽车识别号" name="identifier" data-rule-required="true" data-msg-required="请输入车辆识别号"></dd>
+	            </dl>
+	            <dl>
+	                <dt>发动机号</dt>
+	                <dd><input placeholder="发动机号码" name="engine_code" data-rule-required="true" data-msg-required="请输入发动机号"></dd>
+	            </dl>
+	            <dl>
+	                <dt>证书编号</dt>
+	                <dd><input placeholder="证明编号" name="certificate" data-rule-required="true" data-msg-required="请输入证书编号"></dd>
+	            </dl>
+	            <dl>
+	                <dt>保险公司</dt>
+	                <dd><input class="qq" id="EE" name="insurance_companie" placeholder="选择保险公司" data-rule-required="true" data-msg-required="请选择保险公司" readonly>
+										<input type="hidden" name="insurance_companie_id" id="insurance_companie_id" />
+	                </dd>
+	            </dl>
+	            <dl>
+	                <dt>保险金额</dt>
+	                <dd><input placeholder="保险金额" name="insurance_quantity" data-rule-required="true" data-msg-required="请输入保险金额"></dd>
+	            </dl>
+	            <dl>
+	                <dt>保险时间</dt>
+	                <dd><input type="date" name="insurance_at" data-rule-required="true" data-msg-required="请输入保险时间" maxlength="10" data-rule-isDate="true" data-msg-isDate="时间格式错误"></dd>
+	            </dl>
+	            <dl>
+	                <dt>保险内容</dt>
+	                <dd><input class="content" value="选择已购买的保险" name="insurance_content" readonly></dd>
+	            </dl>
+	            <div class="addCarButton"><button>提交车辆信息</button></div>
+	        </div>
+				</form>
     </div>
     <!--保险内容弹出-->
     <div class="showBox1" style=" display:none;">
@@ -234,8 +222,9 @@
     	</div>
       <div class="company" data-url="/api/insurance_companies">
       	<ul>
-          	<li><span><img src="P/bx.gif"></span><p>平安保险</p></li>
-            <li><span><img src="P/bx.gif"></span><p>平安保险</p></li>
+					@foreach ($insurance_companies as $data)
+          <li data-id="{{$data->id}}" data-name="{{$data->name}}"><span><img src="P/bx.gif"></span><p>{{$data->name}}</p></li>
+					@endforeach
           </ul>
       </div>
     </div>
@@ -278,9 +267,7 @@
         		<p>汽车列表</p>
     	</div>
         <div class="carList2">
-            <ul>
-            	<li><span></span><p>奥迪A4L</p></li>
-            </ul>
+            正在加载...
         </div>
     </div>
 </div>
@@ -482,7 +469,7 @@
             <dl>
                 <dt>车辆品牌</dt>
                 <dd>
-                    <input id="RR" placeholder="点击选择车辆品牌" readonly>
+                    <input id="RR" class="RR" placeholder="点击选择车辆品牌" readonly>
                 </dd>
             </dl>
             <dl>
@@ -662,9 +649,7 @@
         		<p>汽车列表</p>
     	</div>
         <div class="carList2">
-            <ul>
-            	<li><span></span><p>奥迪A4L</p></li>
-            </ul>
+					正在加载...
         </div>
     </div>
 </div>
@@ -674,11 +659,8 @@
         </div>
         <p>汽车年份</p>
    	</div>
-    <ul>
-    	<li>2016款 30 TFSI 手动 舒适型</li>
-        <li>2016款 30 TFSI 自动 舒适型</li>
-        <li>2015款 30 TFSI 手动 舒适型</li>
-        <li>2015款 30 TFSI 自动 舒适型</li>
+    <ul class="model_list">
+			正在加载...
     </ul>
 </div>
 <script type="text/javascript">
@@ -694,6 +676,8 @@
 	
 <style type="text/css" media="screen">
 	.mylicenseBox dl dd input.error{color: red;}
+	.addCarBox dl dd{height: 55px;}
+	.addCarBox dl dd input.error{color: red;}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -727,7 +711,26 @@
 			}
     });
 		
-		//选择汽车品牌加载汽车型号
+		//添加车辆表单提交事件
+		$("#form_cars_create").submit(function(){
+
+		}).validate({
+    	debug: false,
+			onsubmit: true, 
+			onfocusout: false,
+			onkeyup: false,
+			onclick: false,
+			errorPlacement: function(error, element) {
+				$("#form_cars_create input.error").css("position", "absolute").each(function() {
+					var left = $(this).position()["left"];
+	        $(this).stop()
+	        .animate({ left: (left-5)+"px" }, 10).animate({ left: (left+5)+"px" }, 10)
+	        .animate({ left: (left)+"px" }, 10);
+				});
+			}
+    });
+		
+		//选择汽车品牌加载汽车系列
 		$(".carList1 li").click(function(){
 			$(".carList2").html("正在加载...");
 			var brandid = $(this).attr('data-brandid');
@@ -735,8 +738,38 @@
 	      url: '/api/car_serials?brandid=' + brandid,
 	      success: function(result) {
 					$(".carList2").html(result);
+					$('.carListBox1 ul li').click(function(){
+						$('.carList11').show();
+						$('.carListBox1').hide();	
+					})
+					//选择汽车系列加载汽车型号
+					$(".carList2 li").click(function(){
+						$(".model_list").html("正在加载...");
+						var serialid = $(this).attr('data-serialid');
+				    $.ajax({
+				      url: '/api/car_models?serialid=' + serialid,
+				      success: function(result) {
+								$(".model_list").html(result);
+								//选择汽车型号
+								$(".model_list li").click(function(){
+									$('.carList11').hide();
+									$('.carListBox').hide();	
+									$('.carListBox1').hide();	
+									$(".RR").val($(this).attr('data-modelname'));
+									$("#model_id").val($(this).attr('data-modelid'));
+								});
+				      }
+				    });
+					});
+					
 	      }
 	    });
+		});
+		
+		//选择保险公司
+		$(".company li").click(function(){
+			$("#insurance_companie_id").val($(this).attr('data-id'));
+			$(".qq").val($(this).attr('data-name'));
 		});
 		
 		

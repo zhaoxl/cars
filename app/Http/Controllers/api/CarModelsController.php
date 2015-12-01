@@ -1,38 +1,32 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class CarModelsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-			\Auth::loginUsingId(1);
-			$user = \Auth::user();
+			$serialid = $request['serialid'];
+			$models = \App\CarModel::where('serialid', '=', $serialid)->get();
 			
-			$brand_initials = \App\CarBrand::groupBy('initials')->select('initials');
-			$brands = \App\CarBrand::orderBy('initials', 'ASC')->get();
-			$insurance_companies = \App\InsuranceCompany::get();
-			
-			$cars = \App\Car::where('user_id', '=', $user->id)->get();
-			$license = \App\License::where('user_id', '=', $user->id)->first();
-			
-      return view('/index')->with('brand_initials', $brand_initials)->with('brands', $brands)->with('license', $license)->with('insurance_companies', $insurance_companies)->with('cars', $cars);
+			return view('api.car_models.index')->with('models', $models);
     }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * 
      */
     public function create()
     {
@@ -47,7 +41,7 @@ class IndexController extends Controller
      */
     public function store(Request $request)
     {
-        //
+			
     }
 
     /**
