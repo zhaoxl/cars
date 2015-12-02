@@ -36,7 +36,7 @@
         
         <div class="myCarBox">
 						@foreach ($cars as $data)
-            <dl class="myCar">
+            <dl class="myCar" data-car_id="{{$data->id}}">
             <dt><img src="P/cl1.gif"></dt>
             <dd>
                 <div class="rightCarBox">
@@ -257,7 +257,7 @@
                 			<li data-brandid="{{$data->brandid}}"><span class="tb"></span><p>{{$data->brandname}}</p><span class="xyb"></span></li>
 							@endforeach
             </div>
-            </div>
+        </div>
     </div>
     <!--汽车详细弹出-->
     <div class="carListBox1" style=" display:none;">
@@ -306,43 +306,43 @@
 	</div>
     <div class="checkCarBox">
     	<dl class="carBox1">
-        <dd><div class="gs"><p>宝马3系2.0g</p><b>(2016款 320Li 进取型)</b></div><span class="FF"></span></dd>
+        <dd><div class="gs name"><p>正在加载...</p></div><span class="FF"></span></dd>
         </dl>
         <div class="carBox_11" style=" display:none;">
             <dl class="carBox">
                 <dt>购买地点</dt>
-                <dd><p>吉林省华之诚汽车销售服务有限公司</p></dd>
+                <dd><p class="buy_address">正在加载...</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>购买时间</dt>
-                <dd><p>2015-11-14</p></dd>
+                <dd><p class="buy_at">正在加载...</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>年检时间</dt>
-                <dd><p>2015-11-14</p></dd>
+                <dd><p class="check_at">正在加载...</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>保养日期</dt>
-                <dd><p>2015-11-14</p></dd>
+                <dd><p class="maintain_at">正在加载...</p></dd>
             </dl>
         </div>
     </div>
     <div class="checkCarBox">
     	<dl class="carBox1">
-        <dd><div class="gs"><p>平安保险有限公司</p></div><span style=" border-left:#f2f2f2 solid 1px;"><a href="tel://15043012317"></a></span></dd>
+        <dd><div class="gs"><p class="insuranceCompanyName">平安保险有限公司</p></div><span style=" border-left:#f2f2f2 solid 1px;"><a href="tel://15043012317"></a></span></dd>
         </dl>
         <div class="carBox_11" style=" display:none;">
             <dl class="carBox">
                 <dt>保险时间</dt>
-                <dd><p>2015-11-14</p></dd>
+                <dd><p class="insurance_at">正在加载...</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>保险金额</dt>
-                <dd><p>10000</p></dd>
+                <dd><p class="insurance_quantity">正在加载...</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>保养日期</dt>
-                <dd><p>2015-11-14</p></dd>
+                <dd><p>正在加载...</p></dd>
             </dl>
             <dl class="carBox">
                 <dt>保险内容</dt>
@@ -432,28 +432,34 @@
             </div>
             <p>修改驾照</p>
         </div>
-        <div class="mylicenseBox">
-    	<dl>
-        	<dt>驾照姓名</dt>
-            <dd><input placeholder="姓名"></dd>
-        </dl>
-        <dl>
-        	<dt>驾驶证号</dt>
-            <dd><input placeholder="驾驶证"></dd>
-        </dl>
-        <dl>
-        	<dt>准驾车型</dt>
-            <dd><input placeholder="准驾车型"></dd>
-        </dl>
-        <dl>
-        	<dt>领证时间</dt>
-            <dd><input type="date" placeholder="点击选择领证时间"></dd>
-        </dl>
-        <dl>
-        	<dt>年检时间</dt>
-            <dd><input type="date" placeholder="点击选择年检时间"></dd>
-        </dl>
-        <div class="mylicenseButtonBox"><button>修改驾照信息</button></div>
+
+		    <form id="form_licenses_edit" action="/api/licenses/{{$license->id}}" method="post">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+					<input type="hidden" name="_method" value="PUT" />
+			    <div class="mylicenseBox">
+						<dl>
+				    	<dt>驾照姓名</dt>
+				        <dd><input placeholder="姓名" name="name" value="{{$license->name}}" data-rule-required="true" data-msg-required="请输入驾照姓名" maxlength="5" /></dd>
+				    </dl>
+				    <dl>
+				    	<dt>驾驶证号</dt>
+				        <dd><input placeholder="驾驶证" name="number" value="{{$license->number}}" data-rule-required="true" data-msg-required="请输入驾驶证号" data-rule-minlength="18" data-msg-minlength="驾驶证号格式错误" maxlength="18"></dd>
+				    </dl>
+				    <dl>
+				    	<dt>准驾车型</dt>
+				        <dd><input placeholder="准驾车型" name="category" value="{{$license->category}}" data-rule-required="true" data-msg-required="请输入准驾车型" maxlength="2"></dd>
+				    </dl>
+				    <dl>
+				    	<dt>领证时间</dt>
+				        <dd><input type="date" placeholder="2015-01-01" name="receive_at" value="{{$license->receive_at}}" data-rule-required="true" data-msg-required="请输入领证时间" maxlength="10" data-rule-isDate="true" data-msg-isDate="领证时间格式错误" /></dd>
+				    </dl>
+				    <dl>
+				    	<dt>年检时间</dt>
+				        <dd><input type="date" placeholder="2021-01-01" name="check_at" value="{{$license->check_at}}" data-rule-required="true" data-msg-required="请输入领证时间" maxlength="10" data-rule-isDate="true" data-msg-isDate="年检时间格式错误" /></dd>
+				    </dl>
+				    <div class="mylicenseButtonBox"><button>保存</button></div>
+					</div>
+				</form>
     	</div>
     </div>
 </div>
@@ -465,62 +471,66 @@
             </div>
             <p>修改车辆</p>
         </div>
-        <div class="addCarBox">
-            <dl>
-                <dt>车辆品牌</dt>
-                <dd>
-                    <input id="RR" class="RR" placeholder="点击选择车辆品牌" readonly>
-                </dd>
-            </dl>
-            <dl>
-                <dt>购买日期</dt>
-                <dd><input type="date"></dd>
-            </dl>
-            <dl>
-                <dt>购买地点</dt>
-                <dd><input placeholder="汽车购买的详细地址"></dd>
-            </dl>
-            <dl>
-                <dt>年检日期</dt>
-                <dd><input type="date"></dd>
-            </dl>
-            <dl>
-                <dt>保养日期</dt>
-                <dd><input type="date"></dd>
-            </dl>
-            <dl>
-                <dt>车辆识别号</dt>
-                <dd><input placeholder="汽车识别号"></dd>
-            </dl>
-            <dl>
-                <dt>发动机号</dt>
-                <dd><input placeholder="发动机号码"></dd>
-            </dl>
-            <dl>
-                <dt>证书编号</dt>
-                <dd><input placeholder="证明编号"></dd>
-            </dl>
-            <dl>
-                <dt>保险公司</dt>
-                <dd><input class="qq" id="EE" placeholder="选择保险公司" readonly>
-                </dd>
-            </dl>
-            <dl>
-                <dt>保险金额</dt>
-                <dd><input placeholder="保险金额"></dd>
-            </dl>
-            <dl>
-                <dt>保险时间</dt>
-                <dd><input type="date"></dd>
-            </dl>
-            <dl>
-                <dt>保险内容</dt>
-                <dd><input class="content" value="选择已购买的保险" readonly></dd>
-            </dl>
-    
-            
-            <div class="addCarButton"><button>提交车辆信息</button></div>
-        </div>
+				<form id="form_cars_edit" action="/api/cars" method="post">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}" />
+					<input type="hidden" name="_method" value="PUT" />
+	        <div class="addCarBox">
+	            <dl>
+	                <dt>车辆品牌</dt>
+	                <dd>
+	                    <input id="RR" class="RR" placeholder="点击选择车辆品牌" data-rule-required="true" data-msg-required="请选择车辆品牌" readonly>
+											<input type="hidden" id="model_id" name="model_id" />
+	                </dd>
+	            </dl>
+	            <dl>
+	                <dt>购买日期</dt>
+	                <dd><input type="date" name="buy_at" data-rule-required="true" data-msg-required="请输入购买日期" maxlength="10" data-rule-isDate="true" data-msg-isDate="时间格式错误"></dd>
+	            </dl>
+	            <dl>
+	                <dt>购买地点</dt>
+	                <dd><input placeholder="汽车购买的详细地址" name="buy_address" data-rule-required="true" data-msg-required="请输入汽车购买的详细地址"></dd>
+	            </dl>
+	            <dl>
+	                <dt>年检日期</dt>
+	                <dd><input type="date" name="check_at" data-rule-required="true" data-msg-required="请输入年检日期" maxlength="10" data-rule-isDate="true" data-msg-isDate="时间格式错误"></dd>
+	            </dl>
+	            <dl>
+	                <dt>保养日期</dt>
+	                <dd><input type="date" name="maintain_at" data-rule-required="true" data-msg-required="请输入保养日期" maxlength="10" data-rule-isDate="true" data-msg-isDate="时间格式错误"></dd>
+	            </dl>
+	            <dl>
+	                <dt>车辆识别号</dt>
+	                <dd><input placeholder="汽车识别号" name="identifier" data-rule-required="true" data-msg-required="请输入车辆识别号"></dd>
+	            </dl>
+	            <dl>
+	                <dt>发动机号</dt>
+	                <dd><input placeholder="发动机号码" name="engine_code" data-rule-required="true" data-msg-required="请输入发动机号"></dd>
+	            </dl>
+	            <dl>
+	                <dt>证书编号</dt>
+	                <dd><input placeholder="证明编号" name="certificate" data-rule-required="true" data-msg-required="请输入证书编号"></dd>
+	            </dl>
+	            <dl>
+	                <dt>保险公司</dt>
+	                <dd><input class="qq" id="EE" name="insurance_companie" placeholder="选择保险公司" data-rule-required="true" data-msg-required="请选择保险公司" readonly>
+										<input type="hidden" name="insurance_companie_id" id="insurance_companie_id" />
+	                </dd>
+	            </dl>
+	            <dl>
+	                <dt>保险金额</dt>
+	                <dd><input placeholder="保险金额" name="insurance_quantity" data-rule-required="true" data-msg-required="请输入保险金额"></dd>
+	            </dl>
+	            <dl>
+	                <dt>保险时间</dt>
+	                <dd><input type="date" name="insurance_at" data-rule-required="true" data-msg-required="请输入保险时间" maxlength="10" data-rule-isDate="true" data-msg-isDate="时间格式错误"></dd>
+	            </dl>
+	            <dl>
+	                <dt>保险内容</dt>
+	                <dd><input class="content" value="选择已购买的保险" name="insurance_content" readonly></dd>
+	            </dl>
+	            <div class="addCarButton"><button>提交车辆信息</button></div>
+	        </div>
+				</form>
     </div>
     <!--保险内容弹出-->
     <div class="showBox1" style=" display:none;">
@@ -559,10 +569,10 @@
     	</div>
         <div class="company">
         	<ul>
-            	<li><span><img src="P/bx.gif"></span><p>平安保险1</p></li>
-                <li><span><img src="P/bx.gif"></span><p>平安保险2</p></li>
-                <li><span><img src="P/bx.gif"></span><p>平安保险3</p></li>
-            </ul>
+						@foreach ($insurance_companies as $data)
+	          <li data-id="{{$data->id}}" data-name="{{$data->name}}"><span><img src="P/bx.gif"></span><p>{{$data->name}}</p></li>
+						@endforeach
+          </ul>
         </div>
     </div>
     <!--汽车列表弹出-->
@@ -572,73 +582,28 @@
         		</div>
         		<p>汽车列表</p>
     		</div>
-            <div class="carList">
-              <div class="zmBox">
-                <a href="#aa">a</a>
-                <a href="#bb">b</a>
-                <a href="#cc">c</a>
-                <a href="#dd">d</a>
-                <a href="#ee">e</a>
-                <a href="#ff">f</a>
-                <a href="#gg">g</a>
-                <a href="#hh">h</a>
-                <a href="#ii">i</a>
-                <a href="#jj">j</a>
-                <a href="#kk">k</a>
-                <a href="#ll">l</a>
-                <a href="#mm">m</a>
-                <a href="#nn">n</a>
-                <a href="#oo">o</a>
-                <a href="#pp">p</a>
-                <a href="#qq">q</a>
-                <a href="#rr">r</a>
-                <a href="#ss">s</a>
-                <a href="#tt">t</a>
-                <a href="#uu">u</a>
-                <a href="#vv">v</a>
-                <a href="#ww">w</a>
-                <a href="#xx">x</a>
-                <a href="#yy">y</a>
-                <a href="#zz">z</a>
-            	</div>
-            <div class="carList1">
-              <dl id="aa">
-                    	<dt>A</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-                    <dl id="bb">
-                    	<dt>B</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-                    <dl id="cc">
-                    	<dt>C</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-                    <dl id="dd">
-                    	<dt>D</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-                    <dl id="ee">
-                    	<dt>E</dt>
-                        <dd>
-                        	<li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                            <li><span class="tb"></span><p>奥迪</p><span class="xyb"></span></li>
-                        </dd>
-                    </dl>
-            </div>
-            </div>
+        <div class="carList">
+          <div class="zmBox">
+						@foreach ($brand_initials as $data)
+            <a href="#{{$data->initial}}">{{$data->initials}}</a>
+						@endforeach
+        	</div>
+        <div class="carList1">
+					<?php $up_initials = '';?>
+					@foreach($brands as $data)
+						@if($up_initials != '' && $data->initials != $up_initials)
+								</dd>
+							</dl>
+						@endif
+						@if($up_initials != $data->initials)
+              <dl id="{{$data->initials}}">
+              	<dt>{{$data->initials}}</dt>
+                <dd>
+						@endif
+						<?php $up_initials = $data->initials?>
+            			<li data-brandid="{{$data->brandid}}"><span class="tb"></span><p>{{$data->brandname}}</p><span class="xyb"></span></li>
+					@endforeach
+        </div>
     </div>
     <!--汽车详细弹出-->
     <!--汽车详细弹出-->
@@ -729,6 +694,43 @@
 				});
 			}
     });
+		//修改驾照表单提交事件
+		$("#form_licenses_edit").submit(function(){
+
+		}).validate({
+    	debug: false,
+			onsubmit: true, 
+			onfocusout: false,
+			onkeyup: false,
+			onclick: false,
+			errorPlacement: function(error, element) {
+				$("#form_licenses_create input.error").css("position", "absolute").each(function() {
+					var left = $(this).position()["left"];
+	        $(this).stop()
+	        .animate({ left: (left-5)+"px" }, 10).animate({ left: (left+5)+"px" }, 10)
+	        .animate({ left: (left)+"px" }, 10);
+				});
+			}
+    });
+		
+		//修改车辆表单提交事件
+		$("#form_cars_edit").submit(function(){
+
+		}).validate({
+    	debug: false,
+			onsubmit: true, 
+			onfocusout: false,
+			onkeyup: false,
+			onclick: false,
+			errorPlacement: function(error, element) {
+				$("#form_cars_create input.error").css("position", "absolute").each(function() {
+					var left = $(this).position()["left"];
+	        $(this).stop()
+	        .animate({ left: (left-5)+"px" }, 10).animate({ left: (left+5)+"px" }, 10)
+	        .animate({ left: (left)+"px" }, 10);
+				});
+			}
+    });
 		
 		//选择汽车品牌加载汽车系列
 		$(".carList1 li").click(function(){
@@ -756,7 +758,7 @@
 									$('.carListBox').hide();	
 									$('.carListBox1').hide();	
 									$(".RR").val($(this).attr('data-modelname'));
-									$("#model_id").val($(this).attr('data-modelid'));
+									$("[name='model_id']").val($(this).attr('data-modelid'));
 								});
 				      }
 				    });
@@ -768,11 +770,48 @@
 		
 		//选择保险公司
 		$(".company li").click(function(){
-			$("#insurance_companie_id").val($(this).attr('data-id'));
+			$("[name='insurance_companie_id']").val($(this).attr('data-id'));
 			$(".qq").val($(this).attr('data-name'));
 		});
 		
-		
+		//点击查看汽车详情
+		$(".myCar").click(function(){
+			var car_id = $(this).attr('data-car_id');
+			$("#form_cars_edit").attr('action', '/api/cars/'+car_id);
+			
+	    $.ajax({
+				dataType: 'json',
+	      url: '/api/cars/' + car_id,
+	      success: function(result) {
+					//设置显示
+					$("#tpl_checkCar .name p").html(result['carName']);
+					$("#tpl_checkCar .buy_address").html(result['buy_address']);
+					$("#tpl_checkCar .buy_at").html(result['buy_at']);
+					$("#tpl_checkCar .check_at").html(result['check_at']);
+					$("#tpl_checkCar .maintain_at").html(result['maintain_at']);
+					$("#tpl_checkCar .insuranceCompanyName").html(result['insuranceCompanyName']);
+					$("#tpl_checkCar .insurance_quantity").html(result['insurance_quantity']);
+					$("#tpl_checkCar .insurance_at").html(result['insurance_at']);
+					
+					//设置表单
+					$("#form_cars_edit #RR").val(result['carName']);
+					$("#form_cars_edit #EE").val(result['insuranceCompanyName']);
+					$("#form_cars_edit [name='model_id']").val(result['model_id']);
+					$("#form_cars_edit [name='insurance_companie_id']").val(result['insurance_companie_id']);
+					$("#form_cars_edit [name='buy_at']").val(result['buy_at']);
+					$("#form_cars_edit [name='buy_address']").val(result['buy_address']);
+					$("#form_cars_edit [name='check_at']").val(result['check_at']);
+					$("#form_cars_edit [name='maintain_at']").val(result['maintain_at']);
+					$("#form_cars_edit [name='identifier']").val(result['identifier']);
+					$("#form_cars_edit [name='engine_code']").val(result['engine_code']);
+					$("#form_cars_edit [name='certificate']").val(result['certificate']);
+					$("#form_cars_edit [name='insurance_quantity']").val(result['insurance_quantity']);
+					$("#form_cars_edit [name='insurance_at']").val(result['insurance_at']);
+					$("#form_cars_edit [name='insurance_content']").val(result['insurance_content']);
+	      }
+	    });
+			
+		});
 	});
 </script>
 </body>

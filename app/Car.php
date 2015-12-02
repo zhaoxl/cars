@@ -15,6 +15,11 @@ class Car extends Model
 		return $this->belongsTo('\App\User');
 	}
 	
+	public function insurance_company()
+	{
+		return $this->belongsTo('\App\InsuranceCompany', 'insurance_companie_id', 'id');
+	}
+	
 	public function model()
 	{
 		return $this->belongsTo('\App\CarModel', 'model_id', 'id');
@@ -32,6 +37,18 @@ class Car extends Model
 			{
 				$result = $serial->brandtype.'  '.$serial->serialname.'  '.$result;
 			}
+		}
+		
+		return $result;
+	}
+	
+	public function insuranceCompanyName()
+	{
+		$company = $this->insurance_company;
+		$result = "";
+		if(!is_null($company))
+		{
+			$result = $company->name;
 		}
 		
 		return $result;
