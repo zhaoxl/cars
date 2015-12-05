@@ -179,7 +179,7 @@
 	            </dl>
 	            <dl>
 	                <dt>保险内容</dt>
-	                <dd><input class="content" value="选择已购买的保险" name="insurance_content" readonly></dd>
+	                <dd><input class="content" value="选择已购买的保险" name="insurance_content" data-rule-required="true" data-msg-required="选择已购买的保险" readonly></dd>
 	            </dl>
 	            <div class="addCarButton"><button>提交车辆信息</button></div>
 	        </div>
@@ -194,24 +194,21 @@
     	</div>
             <div class="contentBox">
             	<ul>
-                	<li><label><p>交通事故责任强保险</p><input type="checkbox"></label></li>
-                    <li><label><p>第三者责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>车辆损失险</p><input type="checkbox"></label></li>
-                    <li><label><p>全车强盗险</p><input type="checkbox"></label></li>
-                    <li><label><p>玻璃单独破碎险</p><input type="checkbox"></label></li>
-                    <li><label><p>自燃损失险</p><input type="checkbox"></label></li>
-                    <li><label><p>不计免赔特约险</p><input type="checkbox"></label></li>
-                    <li><label><p>无过责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>车上人员责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>车身划痕险</p><input type="checkbox"></label></li>
-                    <li><label><p>司机座位责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>乘客座位责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>涉水险/发动机特别损失险</p><input type="checkbox"></label></li>
-                </ul>
-                <div class="qrqxBigBox">
-                <button class="FF2"  style=" background-color:#ccc">取消</button><button style=" background-color:#ff003c">确认</button>
-                </div>
-            </div>
+                <li><label><p>交强险</p><input type="checkbox" name="insurance_type" value="交强险"></label></li>
+                <li><label><p>车损险</p><input type="checkbox" name="insurance_type" value="车损险"></label></li>
+                <li><label><p>三者险</p><input type="checkbox" name="insurance_type" value="三者险"></label></li>
+                <li><label><p>司乘险</p><input type="checkbox" name="insurance_type" value="司乘险"></label></li>
+                <li><label><p>盗抢险</p><input type="checkbox" name="insurance_type" value="盗抢险"></label></li>
+                <li><label><p>自燃险</p><input type="checkbox" name="insurance_type" value="自燃险"></label></li>
+                <li><label><p>玻璃险</p><input type="checkbox" name="insurance_type" value="玻璃险"></label></li>
+                <li><label><p>划痕险</p><input type="checkbox" name="insurance_type" value="划痕险"></label></li>
+                <li><label><p>货物险（针对货车）</p><input type="checkbox" name="insurance_type" value="货物险（针对货车）"></label></li>
+                <li><label><p>不计免赔险</p><input type="checkbox" name="insurance_type" value="不计免赔险"></label></li>
+              </ul>
+              <div class="qrqxBigBox">
+              <button class="FF2" style=" background-color:#ccc">取消</button><button class="btn_submit_select_insurance_types" style=" background-color:#ff003c">确认</button>
+              </div>
+          </div>
     </div>
     <!--保险公司弹出-->
     <div class="showBox2" style=" display:none;">
@@ -277,11 +274,8 @@
         </div>
         <p>汽车年份</p>
    	</div>
-    <ul>
-    	<li>2016款 30 TFSI 手动 舒适型</li>
-        <li>2016款 30 TFSI 自动 舒适型</li>
-        <li>2015款 30 TFSI 手动 舒适型</li>
-        <li>2015款 30 TFSI 自动 舒适型</li>
+    <ul class="model_list">
+			正在加载...
     </ul>
 </div>
 <!--查看汽车-->
@@ -329,7 +323,7 @@
     </div>
     <div class="checkCarBox">
     	<dl class="carBox1">
-        <dd><div class="gs"><p class="insuranceCompanyName">平安保险有限公司</p></div><span style=" border-left:#f2f2f2 solid 1px;"><a href="tel://15043012317"></a></span></dd>
+        <dd><div class="gs"><p class="insuranceCompanyName">正在加载...</p></div><span style=" border-left:#f2f2f2 solid 1px;"><a id="insurance_tel" href="tel://"></a></span></dd>
         </dl>
         <div class="carBox_11" style=" display:none;">
             <dl class="carBox">
@@ -346,7 +340,8 @@
             </dl>
             <dl class="carBox">
                 <dt>保险内容</dt>
-                <dd><a>玻璃险</a><a>玻璃险</a><a>交通事故责任强保险</a><a>玻璃险</a><a>玻璃险</a><a>玻璃险</a><a>玻璃险</a><a>玻璃险</a></dd>
+                <dd class="insurance_contents">
+								</dd>
             </dl>
         </div>
     </div>
@@ -526,7 +521,7 @@
 	            </dl>
 	            <dl>
 	                <dt>保险内容</dt>
-	                <dd><input class="content" value="选择已购买的保险" name="insurance_content" readonly></dd>
+	                <dd><input class="content" value="选择已购买的保险" name="insurance_content" data-rule-required="true" data-msg-required="选择已购买的保险" readonly></dd>
 	            </dl>
 	            <div class="addCarButton"><button>提交车辆信息</button></div>
 	        </div>
@@ -541,23 +536,20 @@
     	</div>
             <div class="contentBox">
             	<ul>
-                	<li><label><p>交通事故责任强保险</p><input type="checkbox"></label></li>
-                    <li><label><p>第三者责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>车辆损失险</p><input type="checkbox"></label></li>
-                    <li><label><p>全车强盗险</p><input type="checkbox"></label></li>
-                    <li><label><p>玻璃单独破碎险</p><input type="checkbox"></label></li>
-                    <li><label><p>自燃损失险</p><input type="checkbox"></label></li>
-                    <li><label><p>不计免赔特约险</p><input type="checkbox"></label></li>
-                    <li><label><p>无过责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>车上人员责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>车身划痕险</p><input type="checkbox"></label></li>
-                    <li><label><p>司机座位责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>乘客座位责任险</p><input type="checkbox"></label></li>
-                    <li><label><p>涉水险/发动机特别损失险</p><input type="checkbox"></label></li>
-                </ul>
-                <div class="qrqxBigBox">
-                <button class="FF2"  style=" background-color:#ccc">取消</button><button style=" background-color:#ff003c">确认</button>
-                </div>
+                <li><label><p>交强险</p><input type="checkbox" name="insurance_type" value="交强险"></label></li>
+                <li><label><p>车损险</p><input type="checkbox" name="insurance_type" value="车损险"></label></li>
+                <li><label><p>三者险</p><input type="checkbox" name="insurance_type" value="三者险"></label></li>
+                <li><label><p>司乘险</p><input type="checkbox" name="insurance_type" value="司乘险"></label></li>
+                <li><label><p>盗抢险</p><input type="checkbox" name="insurance_type" value="盗抢险"></label></li>
+                <li><label><p>自燃险</p><input type="checkbox" name="insurance_type" value="自燃险"></label></li>
+                <li><label><p>玻璃险</p><input type="checkbox" name="insurance_type" value="玻璃险"></label></li>
+                <li><label><p>划痕险</p><input type="checkbox" name="insurance_type" value="划痕险"></label></li>
+                <li><label><p>货物险（针对货车）</p><input type="checkbox" name="insurance_type" value="货物险（针对货车）"></label></li>
+                <li><label><p>不计免赔险</p><input type="checkbox" name="insurance_type" value="不计免赔险"></label></li>
+              </ul>
+              <div class="qrqxBigBox">
+              <button class="FF2" style=" background-color:#ccc">取消</button><button class="btn_submit_select_insurance_types" style=" background-color:#ff003c">确认</button>
+              </div>
             </div>
     </div>
     <!--保险公司弹出-->
@@ -793,6 +785,14 @@
 					$("#tpl_checkCar .insurance_quantity").html(result['insurance_quantity']);
 					$("#tpl_checkCar .insurance_at").html(result['insurance_at']);
 					
+					var insurance_contents = "";
+					$.each(result['insurance_content'].split(','), function(i, x){
+						insurance_contents += '<a>'+x+'</a>';
+					});
+					$(".insurance_contents").html(insurance_contents);
+					
+					$("#insurance_tel").attr('href', 'tel://'+result['insuranceCompanyTel']);
+					
 					//设置表单
 					$("#form_cars_edit #RR").val(result['carName']);
 					$("#form_cars_edit #EE").val(result['insuranceCompanyName']);
@@ -811,6 +811,16 @@
 	      }
 	    });
 			
+		});
+		
+		//选择保险点击确认按钮
+		$(".btn_submit_select_insurance_types").click(function(){
+			var result = [];
+			$.each($(this).parent().parent().find("ul:first input[type=checkbox]:checked"), function(){
+				result.push($(this).val());
+			});
+			$("[name=insurance_content]").val(result.join(","));
+			$(".FF2").click();
 		});
 	});
 </script>

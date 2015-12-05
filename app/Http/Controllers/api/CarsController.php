@@ -120,7 +120,7 @@ class CarsController extends Controller
     public function show($id)
     {
 			$car = \App\Car::find($id);
-			return json_encode(array('carName' => $car->carName(), 'model_id' => $car->model_id, 'insurance_companie_id' => $car->insurance_companie_id, 'buy_at' => $car->buy_at, 'buy_address' => $car->buy_address, 'check_at' => $car->check_at, 'maintain_at' => $car->maintain_at, 'identifier' => $car->identifier, 'engine_code' => $car->engine_code, 'certificate' => $car->certificate, 'insurance_quantity' => $car->insurance_quantity, 'insurance_at' => $car->insurance_at, 'insurance_content' => $car->insurance_content, 'insuranceCompanyName' => $car->insuranceCompanyName()));
+			return json_encode(array('carName' => $car->carName(), 'model_id' => $car->model_id, 'insurance_companie_id' => $car->insurance_companie_id, 'buy_at' => $car->buy_at, 'buy_address' => $car->buy_address, 'check_at' => $car->check_at, 'maintain_at' => $car->maintain_at, 'identifier' => $car->identifier, 'engine_code' => $car->engine_code, 'certificate' => $car->certificate, 'insurance_quantity' => $car->insurance_quantity, 'insurance_at' => $car->insurance_at, 'insurance_content' => $car->insurance_content, 'insuranceCompanyName' => $car->insuranceCompanyName(), 'insuranceCompanyTel' => $car->insuranceCompanyTel()));
     }
 
     /**

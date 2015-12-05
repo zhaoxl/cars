@@ -53,4 +53,16 @@ class Car extends Model
 		
 		return $result;
 	}
+	
+	public function insuranceCompanyTel()
+	{
+		$company = $this->insurance_company;
+		$result = "";
+		if(!is_null($company))
+		{
+			$result = $company->tel;
+		}
+		
+		return $result;
+	}
 }
