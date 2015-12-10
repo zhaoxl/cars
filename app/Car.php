@@ -65,4 +65,21 @@ class Car extends Model
 		
 		return $result;
 	}
+	
+	public function serialId()
+	{
+		$model = $this->model;
+		$result = "";
+		if(!is_null($model))
+		{
+			$result = $model->modelname;
+			$serial = $model->serial;
+			if(!is_null($serial))
+			{
+				$result = $serial->serialid;
+			}
+		}
+		
+		return $result;
+	}
 }

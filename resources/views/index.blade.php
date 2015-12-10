@@ -37,7 +37,7 @@
         <div class="myCarBox">
 						@foreach ($cars as $data)
             <dl class="myCar" data-car_id="{{$data->id}}">
-            <dt><img src="P/cl1.gif"></dt>
+            <dt><img src="/car_img/carimg/{{$data->serialId()}}.jpg"></dt>
             <dd>
                 <div class="rightCarBox">
                     <span class="wz"><a>违章</a></span>
